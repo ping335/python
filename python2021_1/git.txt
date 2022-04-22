@@ -1,0 +1,129 @@
+﻿1. Первоначальные настройки
+   git config -l
+
+   git config --global <option>
+   
+   git config --global user.name "Kirill Vercetti"
+   git config --global user.email office@kyzima-spb.com
+
+   Окончания строк:
+   https://htmlacademy.ru/blog/boost/tools/konec-stroki
+   
+   core.safecrlf = true - перед записью в базу данных при подготовке к замене CRLF на LF,
+   Git убедится, что сможет успешно прервать операцию.
+   Он проверит, что можно откатить изменения (из LF в CRLF), а если нет, то отменит операцию.
+   Полезно, когда специфические бинарники похожие на текстовые файлы.   
+
+2. Создаем репозиторий Git для нового проекта
+   git init
+
+   Клонируем репозиторий Git для существующего проекта
+   git clone <url>
+   git clone <url> <path>
+
+3. Проверка состояния
+   git status
+
+4. Индексация изменений
+   git add <path> <path> ... <path>
+
+5. Коммит (фиксация) изменений
+   git commit -m <сообщение>
+
+6. Просмотр истории
+   git log
+   git log --oneline
+   git show <hash>
+   git show <path>
+
+7. Перемещение по истории
+   git checkout <hash>
+
+8. Отмена изменений до индексации (Git>=2.23.0 - 16.08.2019)
+   git restore <file>
+
+   Git<2.23.0
+   git checkout -- <file>
+
+9. Отмена проиндексированных изменений (перед коммитом) (Git>=2.23.0 - 16.08.2019)
+   git restore --staged <file> => убирает файл из индекса, не изменяет рабочий каталог,
+                                  т.е. содержимое останется прежним
+
+   git restore --staged --worktree <file> => убирает файл из индекса и изменяет рабочий каталог,
+                                             т.е. содержимое файла откатывается до состояния HEAD
+   
+   git restore -SW <file> => тоже самое, но коротко
+
+   Git<2.23.0
+   git reset HEAD <file>  => сбрасывает буферную зону к HEAD
+   git checkout -- <file> => reset (по умолчанию) не изменяет рабочий каталог,
+                             т.е. содержимое останется прежним
+
+10. Просмотр веток
+   "Одна фича - одна ветка.
+   Один багфикс (больше двух коммитов) - одна ветка.
+   Один эксперимент - одна ветка.
+   Одна фича внутри эксперимента - ветка от ветки."
+
+   git branch
+
+11. Создание ветки (Git>=2.23.0 - 16.08.2019)
+   git switch -c <branch_name>
+   
+   Git<2.23.0
+   git checkout -b <branch_name>
+
+12. Переключение между ветками (Git>=2.23.0 - 16.08.2019)
+   git switch <branch_name>
+   git switch --discard-changes <branch_name> => отбросить локальные изменения
+   git switch -                               => переключение на предыдущую ветку
+
+   Git<2.23.0
+   git checkout <branch_name>
+
+13. Слияние веток
+   git switch <branch_name_1>
+   git merge <branch_name_2>
+
+14. Удаление ветки
+   git branch -d <branch_name>
+
+15. Создание тегов (метод) версий
+   git tag <tag_name>                   => Легковесная метка
+   git tag -a <tag_name> -m <сообщение> => Аннотированные метки
+
+16. Просмотр тегов
+   git tag
+   git tag -l 'v1.*'
+
+17. Удаление тега
+   git tag -d <tag_name>
+
+18. Добавить удаленный (общий) репозиторий
+   git remote add origin <uri>
+
+19. Отправить изменения в удаленный репозиторий
+   git push -u origin <branch_name>
+
+20. Получить изменения из удаленного репозитория
+   git pull origin <branch_name>
+   git pull origin <branch_name> --allow-unrelated-histories
+
+====
+
+21. Справка
+   git help
+   git <command> -h
+
+22. Сравнение коммитов
+   git diff HEAD
+
+23. Перемещение файлов
+   git mv <from> <to>
+
+24. Удаление файлов
+   git rm <file>
+   git rm --cached <file>
+
+25. git config --system --unset credential.helper
+    Очистка кеша сохраненных паролей
